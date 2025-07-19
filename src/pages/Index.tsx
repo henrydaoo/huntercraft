@@ -3,11 +3,15 @@ import { useLocation } from "react-router-dom";
 import Layout from "@/components/Layout";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
-import Skills from "@/components/Skills";
-import Projects from "@/components/Projects";
-import Contact from "@/components/Contact";
-import EducationTimeline from "@/components/EducationTimeline";
-import ExperienceTimeline from "@/components/ExperienceTimeline";
+import { Suspense, lazy } from "react";
+// ...existing code...
+const Skills = lazy(() => import("@/components/Skills"));
+const ExperienceTimeline = lazy(
+  () => import("@/components/ExperienceTimeline")
+);
+const EducationTimeline = lazy(() => import("@/components/EducationTimeline"));
+const Projects = lazy(() => import("@/components/Projects"));
+const Contact = lazy(() => import("@/components/Contact"));
 import { useScrollToTop } from "@/hooks/useScrollToTop";
 
 const Index = () => {
@@ -37,11 +41,21 @@ const Index = () => {
       <main>
         <Hero />
         <About />
-        <Skills />
-        <ExperienceTimeline />
-        <EducationTimeline />
-        <Projects />
-        <Contact />
+        <Suspense fallback={null}>
+          <Skills />
+        </Suspense>
+        <Suspense fallback={null}>
+          <ExperienceTimeline />
+        </Suspense>
+        <Suspense fallback={null}>
+          <EducationTimeline />
+        </Suspense>
+        <Suspense fallback={null}>
+          <Projects />
+        </Suspense>
+        <Suspense fallback={null}>
+          <Contact />
+        </Suspense>
       </main>
     </Layout>
   );
