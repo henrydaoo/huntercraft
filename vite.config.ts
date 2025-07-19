@@ -37,8 +37,8 @@ export default defineConfig(({ mode }) => ({
         ],
       },
       minify: true,
-      entry: 'src/main.tsx',
-      template: 'index.html',
+      entry: "src/main.tsx",
+      template: "index.html",
     }),
   ],
   build: {
@@ -50,6 +50,7 @@ export default defineConfig(({ mode }) => ({
         comments: false,
       },
     },
+    sourcemap: true,
   },
   resolve: {
     alias: {
