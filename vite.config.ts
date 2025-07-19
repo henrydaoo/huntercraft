@@ -1,8 +1,7 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
-// @ts-expect-error: No types for critters
-import Critters from "critters";
+import { createHtmlPlugin } from "vite-plugin-html";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
@@ -12,22 +11,35 @@ export default defineConfig(({ mode }) => ({
   },
   plugins: [
     react(),
-    {
-      name: "vite:critters",
-      enforce: "post",
-      apply: "build",
-      async generateBundle(_, bundle) {
-        const critters = new Critters({
-          // You can customize Critters options here
-          preload: "swap",
-        });
-        for (const file of Object.values(bundle)) {
-          if (file.type === "asset" && file.fileName.endsWith(".html")) {
-            file.source = await critters.process(file.source.toString());
-          }
-        }
+    createHtmlPlugin({
+      inject: {
+        tags: [
+          {
+            tag: "link",
+            attrs: {
+              rel: "preload",
+              as: "style",
+              href: "/assets/index-*.css",
+              onload: "this.rel='stylesheet'",
+            },
+            injectTo: "head",
+          },
+          {
+            tag: "link",
+            attrs: {
+              rel: "preload",
+              as: "script",
+              href: "/assets/index-*.js",
+              onload: "this.rel='script'",
+            },
+            injectTo: "head",
+          },
+        ],
       },
-    },
+      minify: true,
+      entry: 'src/main.tsx',
+      template: 'index.html',
+    }),
   ],
   resolve: {
     alias: {
