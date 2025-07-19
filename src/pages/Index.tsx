@@ -4,7 +4,6 @@ import Layout from "@/components/Layout";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import { Suspense, lazy } from "react";
-// ...existing code...
 const Skills = lazy(() => import("@/components/Skills"));
 const ExperienceTimeline = lazy(
   () => import("@/components/ExperienceTimeline")
