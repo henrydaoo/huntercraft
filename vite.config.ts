@@ -41,6 +41,16 @@ export default defineConfig(({ mode }) => ({
       template: 'index.html',
     }),
   ],
+  build: {
+    minify: "terser",
+    terserOptions: {
+      compress: true,
+      mangle: true,
+      format: {
+        comments: false,
+      },
+    },
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
