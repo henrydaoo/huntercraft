@@ -1,4 +1,4 @@
-i import { Suspense, lazy, useState, useEffect } from "react";
+import { Suspense, lazy, useState, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 
 interface LazyDataSectionProps {
