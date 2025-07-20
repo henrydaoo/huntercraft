@@ -1,14 +1,17 @@
-import { supabaseServer } from '../src/integrations/supabase/serverClient';
+import { supabaseServer } from "../src/integrations/supabase/serverClient";
+
+export const config = { runtime: "edge" };
 
 export default async function handler(req: Request): Promise<Response> {
   const { data, error } = await supabaseServer
-    .from('website_info')
-    .select('*')
+    .from("website_info")
+    .select("*")
     .single();
 
   const headers = {
-    'Content-Type': 'application/json',
-    'Cache-Control': 'public, max-age=300, s-maxage=3600, stale-while-revalidate=86400',
+    "Content-Type": "application/json",
+    "Cache-Control":
+      "public, max-age=300, s-maxage=3600, stale-while-revalidate=86400",
   };
 
   if (error) {
