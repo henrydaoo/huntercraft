@@ -1,10 +1,27 @@
+import { usePersonalInfo, useSocialLinks } from "@/hooks";
 import { useTypingEffect } from "@/hooks/useTypingEffect";
-import { usePersonalInfo } from "@/hooks/usePersonalInfo";
-import { useSocialLinks } from "@/hooks";
+import { useEffect } from "react";
 
 const Hero = () => {
-  const { data: personalInfo, isLoading: loadingPersonal } = usePersonalInfo();
-  const { data: socialLinks, isLoading: loadingSocial } = useSocialLinks();
+  const {
+    data: personalInfo,
+    isLoading: loadingPersonal,
+    refetch: refetchPersonalInfo,
+  } = usePersonalInfo({
+    enable: false,
+  });
+  const {
+    data: socialLinks,
+    isLoading: loadingSocial,
+    refetch: refetchSocialLinks,
+  } = useSocialLinks({
+    enable: false,
+  });
+
+  useEffect(() => {
+    refetchPersonalInfo();
+    refetchSocialLinks();
+  }, []);
 
   const typedName = useTypingEffect(personalInfo?.name || "", 100);
 

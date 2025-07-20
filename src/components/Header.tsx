@@ -7,9 +7,13 @@ import { useWebsiteInfo } from "@/hooks/useWebsiteInfo";
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { data: websiteInfo } = useWebsiteInfo();
+  const { data: websiteInfo, refetch } = useWebsiteInfo({ enable: false });
   const navigate = useNavigate();
   const location = useLocation();
+
+  useEffect(() => {
+    refetch();
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
