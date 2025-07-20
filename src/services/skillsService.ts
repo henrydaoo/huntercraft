@@ -1,21 +1,21 @@
-import { supabase } from '@/integrations/supabase/client';
-import { Tables } from '@/integrations/supabase/types';
 
-export type Skill = Tables<'skills'>;
+export type Skill = {
+  id: number;
+  name: string;
+  level: string;
+  order_index: number;
+  // ... các trường khác nếu cần
+};
 
 async function getSkills(): Promise<Skill[]> {
   try {
-    const { data, error } = await supabase
-      .from('skills')
-      .select('*')
-      .order('order_index', { ascending: true });
-
-    if (error) {
-      console.error('Error fetching skills:', error);
+    const res = await fetch('/api/skills');
+    if (!res.ok) {
+      console.error('Error fetching skills:', res.statusText);
       return [];
     }
-
-    return data || [];
+    const data = await res.json();
+    return Array.isArray(data) ? data : [];
   } catch (error) {
     console.error('Error:', error);
     return [];

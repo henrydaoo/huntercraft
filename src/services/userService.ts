@@ -1,21 +1,21 @@
-import { supabase } from '@/integrations/supabase/client';
-import { Tables } from '@/integrations/supabase/types';
 
-export type PersonalInfo = Tables<'personal_info'>;
+export type PersonalInfo = {
+  id: number;
+  name: string;
+  bio: string;
+  avatar_url?: string;
+  // ... các trường khác nếu cần
+};
 
 async function getPersonalInfo(): Promise<PersonalInfo | null> {
   try {
-    const { data, error } = await supabase
-      .from('personal_info')
-      .select('*')
-      .single();
-
-    if (error) {
-      console.error('Error fetching personal info:', error);
+    const res = await fetch('/api/personal-info');
+    if (!res.ok) {
+      console.error('Error fetching personal info:', res.statusText);
       return null;
     }
-
-    return data;
+    const data = await res.json();
+    return data || null;
   } catch (error) {
     console.error('Error:', error);
     return null;

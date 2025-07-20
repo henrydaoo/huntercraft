@@ -1,4 +1,3 @@
-import { supabase } from '@/integrations/supabase/client';
 
 export interface WebsiteInfo {
   site_name: string;
@@ -7,17 +6,13 @@ export interface WebsiteInfo {
 
 async function getWebsiteInfo(): Promise<WebsiteInfo | null> {
   try {
-    const { data, error } = await supabase
-      .from('website_info')
-      .select('*')
-      .single();
-
-    if (error) {
-      console.error('Error fetching website info:', error);
+    const res = await fetch('/api/website-info');
+    if (!res.ok) {
+      console.error('Error fetching website info:', res.statusText);
       return null;
     }
-
-    return data;
+    const data = await res.json();
+    return data || null;
   } catch (error) {
     console.error('Error:', error);
     return null;
