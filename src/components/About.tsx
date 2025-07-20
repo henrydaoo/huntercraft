@@ -40,7 +40,8 @@ const About = () => {
               About Me
             </h2>
             <p className="text-lg text-blue-100 leading-relaxed">
-              {personalInfo?.bio || ""}
+              {personalInfo?.bio ||
+                "I’m a dedicated developer with a deep interest in using technology to build smart, effective solutions and designing user experiences that are both beautiful and easy to use"}
             </p>
           </div>
         </div>
