@@ -12,6 +12,7 @@ const EducationTimeline = lazy(() => import("@/components/EducationTimeline"));
 const Projects = lazy(() => import("@/components/Projects"));
 const Contact = lazy(() => import("@/components/Contact"));
 import { useScrollToTop } from "@/hooks/useScrollToTop";
+import LazySection from "@/components/LazySection";
 
 const Index = () => {
   const location = useLocation();
@@ -40,21 +41,21 @@ const Index = () => {
       <main>
         <Hero />
         <About />
-        <Suspense fallback={null}>
+        <LazySection minHeight="400px">
           <Skills />
-        </Suspense>
-        <Suspense fallback={null}>
+        </LazySection>
+        <LazySection minHeight="400px">
           <ExperienceTimeline />
-        </Suspense>
-        <Suspense fallback={null}>
+        </LazySection>
+        <LazySection minHeight="400px">
           <EducationTimeline />
-        </Suspense>
-        <Suspense fallback={null}>
+        </LazySection>
+        <LazySection minHeight="400px">
           <Projects />
-        </Suspense>
-        <Suspense fallback={null}>
+        </LazySection>
+        <LazySection minHeight="400px">
           <Contact />
-        </Suspense>
+        </LazySection>
       </main>
     </Layout>
   );
