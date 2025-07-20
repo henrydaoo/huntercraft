@@ -3,7 +3,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
 import LazyDataSection from "@/components/LazyDataSection";
-
+import { Toaster } from "sonner";
 interface LayoutProps {
   children: React.ReactNode;
 }
@@ -17,6 +17,7 @@ const Layout = ({ children }: LayoutProps) => {
         <Footer />
       </LazyDataSection>
       <ScrollToTop />
+      <Toaster position="top-right" richColors />
     </div>
   );
 };
