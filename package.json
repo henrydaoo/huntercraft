@@ -9,7 +9,7 @@
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
     "preview": "vite preview",
-    "critical": "node -e \"const glob=require('glob');const fs=require('fs');const css=glob.sync('dist/assets/index-*.css')[0];if(!css){console.error('No CSS file found!');process.exit(1);}let content=fs.readFileSync(css,'utf8');content=content.replace(/@import[^;]+;/g,'');fs.writeFileSync(css,content);require('child_process').execSync(`npx critical dist/index.html --inline --base dist --css ${css} --width 375 --height 667 && npx critical dist/index.html --inline --base dist --css ${css} --width 1300 --height 900`,{stdio:'inherit'})\""
+    "critical": "node scripts/critical.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
