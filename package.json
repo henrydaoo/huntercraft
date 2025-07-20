@@ -5,10 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && npm run critical",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "critical": "node -e \"const glob=require('glob');const fs=require('fs');const css=glob.sync('dist/assets/index-*.css')[0];if(!css){console.error('No CSS file found!');process.exit(1);}let content=fs.readFileSync(css,'utf8');content=content.replace(/@import[^;]+;/g,'');fs.writeFileSync(css,content);require('child_process').execSync(`npx critical dist/index.html --inline --base dist --css ${css} --width 375 --height 667 && npx critical dist/index.html --inline --base dist --css ${css} --width 1300 --height 900`,{stdio:'inherit'})\""
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
@@ -77,6 +78,7 @@
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react-swc": "^3.5.0",
     "autoprefixer": "^10.4.20",
+    "critical": "^7.2.1",
     "critters": "^0.0.23",
     "eslint": "^9.9.0",
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
