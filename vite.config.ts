@@ -43,7 +43,6 @@ export default defineConfig(({ mode }) => ({
       },
     },
     sourcemap: true,
-    target: "esnext",
   },
   resolve: {
     alias: {
