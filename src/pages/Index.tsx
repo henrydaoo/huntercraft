@@ -45,7 +45,7 @@ const Index = () => {
         <LazyDataSection minHeight="400px">
           <About />
         </LazyDataSection>
-        <LazyDataSection minHeight="400px">
+        <LazyDataSection minHeight="400px" threshold={0.8}>
           <Skills />
         </LazyDataSection>
         <LazyDataSection minHeight="400px">

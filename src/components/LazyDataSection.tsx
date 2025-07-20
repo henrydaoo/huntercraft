@@ -4,10 +4,11 @@ import { useInView } from "react-intersection-observer";
 interface LazyDataSectionProps {
   children: React.ReactNode;
   minHeight?: string;
+  threshold?: number;
 }
 
-const LazyDataSection = ({ children, minHeight = "400px" }: LazyDataSectionProps) => {
-  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
+const LazyDataSection = ({ children, minHeight = "400px", threshold = 0.1 }: LazyDataSectionProps) => {
+  const { ref, inView } = useInView({ triggerOnce: true, threshold });
   const [show, setShow] = useState(false);
 
   useEffect(() => {
