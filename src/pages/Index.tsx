@@ -39,8 +39,12 @@ const Index = () => {
   return (
     <Layout>
       <main>
-        <Hero />
-        <About />
+        <LazySection minHeight="400px">
+          <Hero />
+        </LazySection>
+        <LazySection minHeight="400px">
+          <About />
+        </LazySection>
         <LazySection minHeight="400px">
           <Skills />
         </LazySection>
