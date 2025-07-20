@@ -10,6 +10,7 @@ export type SocialLink = {
   name: string;
   url: string;
   order_index: number;
+  icon: string;
 };
 
 async function getContactInfo(): Promise<ContactInfo | null> {
