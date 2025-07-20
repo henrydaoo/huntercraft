@@ -11,7 +11,7 @@ export default async function handler(req: Request): Promise<Response> {
 
   const headers = {
     'Content-Type': 'application/json',
-    'Cache-Control': 'public, max-age=3600',
+    'Cache-Control': 'public, max-age=300, s-maxage=3600, stale-while-revalidate=86400',
   };
 
   if (error) {
