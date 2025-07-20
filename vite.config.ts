@@ -3,8 +3,7 @@ import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { createHtmlPlugin } from "vite-plugin-html";
 import { visualizer } from "rollup-plugin-visualizer";
-// @ts-ignore
-import critters from "critters";
+import beasties from "beasties";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
@@ -34,21 +33,6 @@ export default defineConfig(({ mode }) => ({
       template: "index.html",
     }),
     visualizer({ open: true }),
-    {
-      ...critters({
-        preload: 'swap',
-        compress: true,
-      }),
-      enforce: 'post',
-      name: 'vite:critters',
-      apply: 'build',
-      transformIndexHtml: async (html, ctx) => {
-        const processed = await critters({
-          path: ctx.path,
-        }).process(html);
-        return processed;
-      }
-    },
   ],
   build: {
     minify: "terser",
