@@ -12,7 +12,7 @@ const EducationTimeline = lazy(() => import("@/components/EducationTimeline"));
 const Projects = lazy(() => import("@/components/Projects"));
 const Contact = lazy(() => import("@/components/Contact"));
 import { useScrollToTop } from "@/hooks/useScrollToTop";
-import LazySection from "@/components/LazySection";
+import LazyDataSection from "@/components/LazyDataSection";
 
 const Index = () => {
   const location = useLocation();
@@ -39,27 +39,27 @@ const Index = () => {
   return (
     <Layout>
       <main>
-        <LazySection minHeight="400px">
+        <LazyDataSection minHeight="400px">
           <Hero />
-        </LazySection>
-        <LazySection minHeight="400px">
+        </LazyDataSection>
+        <LazyDataSection minHeight="400px">
           <About />
-        </LazySection>
-        <LazySection minHeight="400px">
+        </LazyDataSection>
+        <LazyDataSection minHeight="400px">
           <Skills />
-        </LazySection>
-        <LazySection minHeight="400px">
+        </LazyDataSection>
+        <LazyDataSection minHeight="400px">
           <ExperienceTimeline />
-        </LazySection>
-        <LazySection minHeight="400px">
+        </LazyDataSection>
+        <LazyDataSection minHeight="400px">
           <EducationTimeline />
-        </LazySection>
-        <LazySection minHeight="400px">
+        </LazyDataSection>
+        <LazyDataSection minHeight="400px">
           <Projects />
-        </LazySection>
-        <LazySection minHeight="400px">
+        </LazyDataSection>
+        <LazyDataSection minHeight="400px">
           <Contact />
-        </LazySection>
+        </LazyDataSection>
       </main>
     </Layout>
   );
