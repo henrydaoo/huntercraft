@@ -3,8 +3,6 @@ import { Menu, X } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useWebsiteInfo } from "@/hooks/useWebsiteInfo";
-import { useFloating, offset, flip } from "@floating-ui/react";
-import { fromMarkdown } from "mdast-util-from-markdown";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
