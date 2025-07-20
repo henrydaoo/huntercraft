@@ -1,10 +1,8 @@
-
 export type ContactInfo = {
   id: number;
   email: string;
   phone?: string;
   address?: string;
-  // ... các trường khác nếu cần
 };
 
 export type SocialLink = {
@@ -12,40 +10,39 @@ export type SocialLink = {
   name: string;
   url: string;
   order_index: number;
-  // ... các trường khác nếu cần
 };
 
 async function getContactInfo(): Promise<ContactInfo | null> {
   try {
-    const res = await fetch('/api/contact-info');
+    const res = await fetch("/api/contact-info");
     if (!res.ok) {
-      console.error('Error fetching contact info:', res.statusText);
+      console.error("Error fetching contact info:", res.statusText);
       return null;
     }
     const data = await res.json();
     return data || null;
   } catch (error) {
-    console.error('Error:', error);
+    console.error("Error:", error);
     return null;
   }
 }
 
 async function getSocialLinks(): Promise<SocialLink[]> {
   try {
-    const res = await fetch('/api/social-links');
+    const res = await fetch("/api/social-links");
     if (!res.ok) {
-      console.error('Error fetching social links:', res.statusText);
+      console.error("Error fetching social links:", res.statusText);
       return [];
     }
     const data = await res.json();
     return Array.isArray(data) ? data : [];
   } catch (error) {
-    console.error('Error:', error);
+    console.error("Error:", error);
     return [];
   }
 }
 
 export const contactService = {
   getContactInfo,
-  getSocialLinks
+  getSocialLinks,
 };

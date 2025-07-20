@@ -4,7 +4,6 @@ export type PersonalInfo = {
   name: string;
   bio: string;
   avatar_url?: string;
-  // ... các trường khác nếu cần
 };
 
 async function getPersonalInfo(): Promise<PersonalInfo | null> {

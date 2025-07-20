@@ -5,14 +5,17 @@ export const config = { runtime: "edge" };
 export default async function handler(req: Request): Promise<Response> {
   const { searchParams } = new URL(req.url);
   let query = supabaseServer.from("projects").select("*");
+  let single = false;
   if (searchParams.has("id")) {
     query = query.eq("id", searchParams.get("id"));
+    single = true;
   }
   if (searchParams.has("slug")) {
     query = query.eq("slug", searchParams.get("slug"));
+    single = true;
   }
   query = query.order("order_index", { ascending: true });
-  const { data, error } = await query;
+  const { data, error } = single ? await query.single() : await query;
 
   const headers = {
     "Content-Type": "application/json",
@@ -27,7 +30,7 @@ export default async function handler(req: Request): Promise<Response> {
     });
   }
 
-  return new Response(JSON.stringify(data || []), {
+  return new Response(JSON.stringify(data || (single ? null : [])), {
     status: 200,
     headers,
   });
