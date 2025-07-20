@@ -1,21 +1,24 @@
-import { supabase } from '@/integrations/supabase/client';
-import { Tables } from '@/integrations/supabase/types';
 
-export type Education = Tables<'education'>;
+export type Education = {
+  id: number;
+  school: string;
+  degree: string;
+  field_of_study: string;
+  start_year: number;
+  end_year?: number;
+  order_index: number;
+  // ... các trường khác nếu cần
+};
 
 async function getEducations(): Promise<Education[]> {
   try {
-    const { data, error } = await supabase
-      .from('education')
-      .select('*')
-      .order('order_index', { ascending: true });
-
-    if (error) {
-      console.error('Error fetching education:', error);
+    const res = await fetch('/api/education');
+    if (!res.ok) {
+      console.error('Error fetching education:', res.statusText);
       return [];
     }
-
-    return data || [];
+    const data = await res.json();
+    return Array.isArray(data) ? data : [];
   } catch (error) {
     console.error('Error:', error);
     return [];

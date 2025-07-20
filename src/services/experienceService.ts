@@ -1,22 +1,23 @@
-import { supabase } from '@/integrations/supabase/client';
-import { Tables } from '@/integrations/supabase/types';
 
-export type Experience = Tables<'experiences'>;
+export type Experience = {
+  // Khai báo các trường cần thiết cho Experience
+  id: number;
+  title: string;
+  company: string;
+  visible: boolean;
+  order_index: number;
+  // ... các trường khác nếu cần
+};
 
 async function getExperiences(): Promise<Experience[]> {
   try {
-    const { data, error } = await supabase
-      .from('experiences')
-      .select('*')
-      .eq('visible', true)
-      .order('order_index', { ascending: true });
-
-    if (error) {
-      console.error('Error fetching experiences:', error);
+    const res = await fetch('/api/experiences');
+    if (!res.ok) {
+      console.error('Error fetching experiences:', res.statusText);
       return [];
     }
-
-    return data || [];
+    const data = await res.json();
+    return Array.isArray(data) ? data : [];
   } catch (error) {
     console.error('Error:', error);
     return [];

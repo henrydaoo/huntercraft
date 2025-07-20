@@ -37,13 +37,21 @@ export const sendContactEmail = async (formData: ContactFormSchema): Promise<Con
     const validatedData = contactFormSchema.parse(formData);
 
     // Call the Supabase Edge Function
-    const { data, error } = await supabase.functions.invoke('send-email', {
-      body: {
-        name: validatedData.name,
-        email: validatedData.email,
-        message: validatedData.message,
+    // Gọi Supabase Edge Function qua fetch
+    const response = await fetch(`${process.env.VITE_SUPABASE_URL}/functions/v1/send-email`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${process.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
       },
+      body: JSON.stringify({ 
+        name: validatedData.name, 
+        email: validatedData.email, 
+        message: validatedData.message 
+      }),
     });
+    const data = await response.json();
+    const error = !response.ok ? data : null;
 
     if (error) {
       console.error('Supabase function error:', error);

@@ -1,21 +1,7 @@
-import { createClient } from "@supabase/supabase-js";
-import type { Database } from "./types";
+import { PostgrestClient } from "@supabase/postgrest-js";
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
-const SUPABASE_PUBLISHABLE_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
-
-if (!SUPABASE_URL || !SUPABASE_PUBLISHABLE_KEY) {
-  throw new Error("Missing Supabase environment variables");
+if (!SUPABASE_URL) {
+  throw new Error("Missing Supabase URL environment variable");
 }
-
-export const supabase = createClient<Database>(
-  SUPABASE_URL,
-  SUPABASE_PUBLISHABLE_KEY,
-  {
-    auth: {
-      storage: localStorage,
-      persistSession: true,
-      autoRefreshToken: true,
-    },
-  }
-);
+export const supabase = new PostgrestClient(SUPABASE_URL);

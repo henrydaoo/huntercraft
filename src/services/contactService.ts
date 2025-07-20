@@ -1,22 +1,29 @@
-import { supabase } from '@/integrations/supabase/client';
-import { Tables } from '@/integrations/supabase/types';
 
-export type ContactInfo = Tables<'contact_info'>;
-export type SocialLink = Tables<'social_links'>;
+export type ContactInfo = {
+  id: number;
+  email: string;
+  phone?: string;
+  address?: string;
+  // ... các trường khác nếu cần
+};
+
+export type SocialLink = {
+  id: number;
+  name: string;
+  url: string;
+  order_index: number;
+  // ... các trường khác nếu cần
+};
 
 async function getContactInfo(): Promise<ContactInfo | null> {
   try {
-    const { data, error } = await supabase
-      .from('contact_info')
-      .select('*')
-      .single();
-
-    if (error) {
-      console.error('Error fetching contact info:', error);
+    const res = await fetch('/api/contact-info');
+    if (!res.ok) {
+      console.error('Error fetching contact info:', res.statusText);
       return null;
     }
-
-    return data;
+    const data = await res.json();
+    return data || null;
   } catch (error) {
     console.error('Error:', error);
     return null;
@@ -25,17 +32,13 @@ async function getContactInfo(): Promise<ContactInfo | null> {
 
 async function getSocialLinks(): Promise<SocialLink[]> {
   try {
-    const { data, error } = await supabase
-      .from('social_links')
-      .select('*')
-      .order('order_index', { ascending: true });
-
-    if (error) {
-      console.error('Error fetching social links:', error);
+    const res = await fetch('/api/social-links');
+    if (!res.ok) {
+      console.error('Error fetching social links:', res.statusText);
       return [];
     }
-
-    return data || [];
+    const data = await res.json();
+    return Array.isArray(data) ? data : [];
   } catch (error) {
     console.error('Error:', error);
     return [];

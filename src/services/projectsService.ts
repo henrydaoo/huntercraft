@@ -1,21 +1,23 @@
-import { supabase } from '@/integrations/supabase/client';
-import { Tables } from '@/integrations/supabase/types';
 
-export type Project = Tables<'projects'>;
+export type Project = {
+  id: string;
+  title: string;
+  description: string;
+  slug: string;
+  visible: boolean;
+  order_index: number;
+  // ... các trường khác nếu cần
+};
 
 async function getProjects(): Promise<Project[]> {
   try {
-    const { data, error } = await supabase
-      .from('projects')
-      .select('*')
-      .order('order_index', { ascending: true });
-
-    if (error) {
-      console.error('Error fetching projects:', error);
+    const res = await fetch('/api/projects');
+    if (!res.ok) {
+      console.error('Error fetching projects:', res.statusText);
       return [];
     }
-
-    return data || [];
+    const data = await res.json();
+    return Array.isArray(data) ? data : [];
   } catch (error) {
     console.error('Error:', error);
     return [];
@@ -24,18 +26,13 @@ async function getProjects(): Promise<Project[]> {
 
 async function getProjectById(id: string): Promise<Project | null> {
   try {
-    const { data, error } = await supabase
-      .from('projects')
-      .select('*')
-      .eq('id', id)
-      .single();
-
-    if (error) {
-      console.error('Error fetching project:', error);
+    const res = await fetch(`/api/projects?id=${id}`);
+    if (!res.ok) {
+      console.error('Error fetching project:', res.statusText);
       return null;
     }
-
-    return data;
+    const data = await res.json();
+    return data || null;
   } catch (error) {
     console.error('Error:', error);
     return null;
@@ -44,18 +41,13 @@ async function getProjectById(id: string): Promise<Project | null> {
 
 async function getProjectBySlug(slug: string): Promise<Project | null> {
   try {
-    const { data, error } = await supabase
-      .from('projects')
-      .select('*')
-      .eq('slug', slug)
-      .single();
-
-    if (error) {
-      console.error('Error fetching project:', error);
+    const res = await fetch(`/api/projects?slug=${slug}`);
+    if (!res.ok) {
+      console.error('Error fetching project:', res.statusText);
       return null;
     }
-
-    return data;
+    const data = await res.json();
+    return data || null;
   } catch (error) {
     console.error('Error:', error);
     return null;
