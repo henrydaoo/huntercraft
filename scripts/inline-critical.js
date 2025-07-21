@@ -16,14 +16,12 @@ async function inlineCriticalCSS() {
   const beast = new beasties({
     preload: "swap",
     compress: true,
-    // Bạn có thể thêm các tuỳ chọn khác theo tài liệu beasties
   });
 
   const html = await fs.readFile(htmlFile, "utf8");
   const processed = await beast.process(html, {
     css: cssFiles,
     html: htmlFile,
-    // Bạn có thể thêm các tuỳ chọn khác nếu cần
   });
   await fs.writeFile(htmlFile, processed);
   console.log("Critical CSS inlined successfully!");
