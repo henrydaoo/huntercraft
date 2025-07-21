@@ -1,52 +1,59 @@
 // @ts-nocheck
-import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
+import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
 interface ContactFormData {
-  name: string
-  email: string
-  message: string
+  name: string;
+  email: string;
+  message: string;
 }
 
 const handler = async (req: Request): Promise<Response> => {
   // Debug CORS settings
-  const allowedOrigin = Deno.env.get('ALLOWED_ORIGIN')
-  const requestOrigin = req.headers.get('Origin')
-  
-  console.log('🔍 CORS Debug:', {
-    ALLOWED_ORIGIN: allowedOrigin || 'NOT SET',
-    REQUEST_ORIGIN: requestOrigin || 'NOT SET',
-    METHOD: req.method
-  })
+  const allowedOriginEnv = Deno.env.get("ALLOWED_ORIGIN") || "";
+  const allowedOrigins = allowedOriginEnv.split(",").map((o) => o.trim());
+  const requestOrigin = req.headers.get("Origin");
+
+  console.log("🔍 CORS Debug:", {
+    ALLOWED_ORIGIN: allowedOriginEnv || "NOT SET",
+    REQUEST_ORIGIN: requestOrigin || "NOT SET",
+    METHOD: req.method,
+  });
+
+  let allowOrigin = allowedOrigins.includes(requestOrigin)
+    ? requestOrigin
+    : allowedOrigins[0] || "http://localhost:5173";
 
   // Dynamic CORS headers based on request
   const corsHeaders = {
-    'Access-Control-Allow-Origin': allowedOrigin || 'http://localhost:5173',
-    'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-    'Access-Control-Allow-Methods': 'POST, OPTIONS',
-    'Access-Control-Max-Age': '86400',
-  }
+    "Access-Control-Allow-Origin": allowOrigin,
+    "Access-Control-Allow-Headers":
+      "authorization, x-client-info, apikey, content-type",
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
+    "Access-Control-Max-Age": "86400",
+  };
 
-  if (req.method === 'OPTIONS') {
-    return new Response('ok', { headers: corsHeaders })
+  if (req.method === "OPTIONS") {
+    return new Response("ok", { headers: corsHeaders });
   }
 
   try {
-    const { name, email, message }: ContactFormData = await req.json()
+    const { name, email, message }: ContactFormData = await req.json();
 
     if (!name || !email || !message) {
-      throw new Error('Missing required fields')
+      throw new Error("Missing required fields");
     }
 
-    const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY')
-    const toEmail = Deno.env.get('CONTACT_EMAIL')
-    const subject = Deno.env.get('EMAIL_SUBJECT') || 'New Contact Form Submission'
+    const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
+    const toEmail = Deno.env.get("CONTACT_EMAIL");
+    const subject =
+      Deno.env.get("EMAIL_SUBJECT") || "New Contact Form Submission";
 
     if (!RESEND_API_KEY) {
-      throw new Error('RESEND_API_KEY environment variable is required')
+      throw new Error("RESEND_API_KEY environment variable is required");
     }
 
     if (!toEmail) {
-      throw new Error('CONTACT_EMAIL environment variable is required')
+      throw new Error("CONTACT_EMAIL environment variable is required");
     }
 
     const htmlContent = `
@@ -89,7 +96,9 @@ const handler = async (req: Request): Promise<Response> => {
           </div>
           
           <div style="text-align: center; margin: 32px 0;">
-            <a href="mailto:${email}?subject=Re: ${encodeURIComponent(subject)}" 
+            <a href="mailto:${email}?subject=Re: ${encodeURIComponent(
+      subject
+    )}" 
                style="background-color: #1977f3; border-radius: 3px; color: #fff; font-size: 16px; text-decoration: none; text-align: center; display: inline-block; padding: 12px 24px;">
               Reply to ${name}
             </a>
@@ -105,63 +114,64 @@ const handler = async (req: Request): Promise<Response> => {
         </div>
       </body>
       </html>
-    `
+    `;
 
-    const res = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
+    const res = await fetch("https://api.resend.com/emails", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${RESEND_API_KEY}`,
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${RESEND_API_KEY}`,
       },
       body: JSON.stringify({
-        from: `Portfolio Contact <noreply@${Deno.env.get('RESEND_DOMAIN') || 'resend.dev'}>`,
+        from: `Portfolio Contact <noreply@${
+          Deno.env.get("RESEND_DOMAIN") || "resend.dev"
+        }>`,
         to: toEmail,
         reply_to: email,
         subject: subject,
         html: htmlContent,
       }),
-    })
+    });
 
     if (!res.ok) {
-      const errorData = await res.json()
-      throw new Error(`Resend API error: ${JSON.stringify(errorData)}`)
+      const errorData = await res.json();
+      throw new Error(`Resend API error: ${JSON.stringify(errorData)}`);
     }
 
-    const data = await res.json()
+    const data = await res.json();
 
-    console.log('✅ Email sent successfully:', data)
+    console.log("✅ Email sent successfully:", data);
 
     return new Response(
-      JSON.stringify({ 
-        success: true, 
-        message: 'Message sent successfully!',
-        id: data.id
+      JSON.stringify({
+        success: true,
+        message: "Message sent successfully!",
+        id: data.id,
       }),
-      { 
-        headers: { 
-          ...corsHeaders, 
-          'Content-Type': 'application/json' 
-        } 
-      }
-    )
-
-  } catch (error) {
-    console.error('Error sending email:', error)
-    
-    return new Response(
-      JSON.stringify({ 
-        success: false, 
-        error: error.message || 'Failed to send email'
-      }),
-      { 
-        headers: { 
-          ...corsHeaders, 
-          'Content-Type': 'application/json' 
+      {
+        headers: {
+          ...corsHeaders,
+          "Content-Type": "application/json",
         },
-        status: 500 
       }
-    )
-  }
-}
+    );
+  } catch (error) {
+    console.error("Error sending email:", error);
 
-Deno.serve(handler)
+    return new Response(
+      JSON.stringify({
+        success: false,
+        error: error.message || "Failed to send email",
+      }),
+      {
+        headers: {
+          ...corsHeaders,
+          "Content-Type": "application/json",
+        },
+        status: 500,
+      }
+    );
+  }
+};
+
+Deno.serve(handler);
