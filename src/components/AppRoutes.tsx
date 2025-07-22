@@ -1,18 +1,30 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "@/pages/Index";
-import ProjectDetail from "@/pages/ProjectDetail";
-import NotFound from "@/pages/NotFound";
+import { lazy, Suspense } from "react";
 
-const AppRoutes = () => {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Index />} />
-        <Route path="/project/:slug" element={<ProjectDetail />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </BrowserRouter>
-  );
-};
+const Index = lazy(() => import("@/pages/Index"));
+const ProjectDetail = lazy(() => import("@/pages/ProjectDetail"));
+const NotFound = lazy(() => import("@/pages/NotFound"));
+
+const AppRoutes = () => (
+  <BrowserRouter>
+    <Routes>
+      <Route path="/" element={
+        <Suspense fallback={null}>
+          <Index />
+        </Suspense>
+      } />
+      <Route path="/project/:slug" element={
+        <Suspense fallback={null}>
+          <ProjectDetail />
+        </Suspense>
+      } />
+      <Route path="*" element={
+        <Suspense fallback={null}>
+          <NotFound />
+        </Suspense>
+      } />
+    </Routes>
+  </BrowserRouter>
+);
 
 export default AppRoutes;
