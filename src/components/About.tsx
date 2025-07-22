@@ -1,21 +1,11 @@
-import { usePersonalInfo } from "@/hooks/usePersonalInfo";
+import { useHeroInfo } from "@/hooks/useHeroInfo";
 import AnimatedSection from "./AnimatedSection";
-import { useEffect } from "react";
 
 const About = () => {
-  const {
-    data: personalInfo,
-    isLoading: loading,
-    refetch,
-  } = usePersonalInfo({
-    enable: false,
-  });
+  const { data, isLoading } = useHeroInfo({ enabled: true });
+  const personalInfo = data?.personalInfo;
 
-  useEffect(() => {
-    refetch();
-  }, []);
-
-  if (loading) {
+  if (isLoading) {
     return (
       <section className="py-20 sm:py-24">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">

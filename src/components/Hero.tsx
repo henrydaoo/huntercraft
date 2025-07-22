@@ -1,13 +1,8 @@
 import { useHeroInfo } from "@/hooks/useHeroInfo";
 import { useTypingEffect } from "@/hooks/useTypingEffect";
-import { useEffect } from "react";
 
 const Hero = () => {
-  const {
-    data,
-    isLoading,
-    refetch,
-  } = useHeroInfo({
+  const { data, isLoading } = useHeroInfo({
     enabled: true,
   });
   const personalInfo = data?.personalInfo;
