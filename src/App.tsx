@@ -1,8 +1,10 @@
-import React from "react";
-import { Toaster } from "@/components/ui/sonner";
+import { lazy, Suspense } from "react";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "@/contexts/ThemeContext";
-import AppRoutes from "@/components/AppRoutes";
+const Toaster = lazy(() =>
+  import("@/components/ui/sonner").then((mod) => ({ default: mod.Toaster }))
+);
+const AppRoutes = lazy(() => import("@/components/AppRoutes"));
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 
@@ -10,15 +12,19 @@ const App = () => (
   <>
     <ThemeProvider>
       <TooltipProvider>
-        <Toaster />
-        <AppRoutes />
+        <Suspense fallback={null}>
+          <Toaster />
+        </Suspense>
+        <Suspense fallback={null}>
+          <AppRoutes />
+        </Suspense>
       </TooltipProvider>
     </ThemeProvider>
     {import.meta.env.PROD && (
-      <React.Suspense fallback={null}>
+      <Suspense fallback={null}>
         <SpeedInsights />
         <Analytics />
-      </React.Suspense>
+      </Suspense>
     )}
   </>
 );

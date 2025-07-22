@@ -1,14 +1,9 @@
 import { useSkills } from "@/hooks/useSkills";
-import * as LucideIcons from "lucide-react";
+import { Code } from "lucide-react";
 import AnimatedSection from "./AnimatedSection";
 
 const Skills = () => {
   const { data: skills = [], isLoading: loading } = useSkills();
-
-  const getIcon = (iconName?: string) => {
-    if (!iconName) return LucideIcons.Layers;
-    return (LucideIcons as any)[iconName] || LucideIcons.Layers;
-  };
 
   if (loading) {
     return (
@@ -50,7 +45,6 @@ const Skills = () => {
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-8">
           {skills.map((skill, index) => {
-            const IconComponent = getIcon(skill.icon);
             return (
               <div
                 key={skill.id}
@@ -66,7 +60,7 @@ const Skills = () => {
                       draggable={false}
                     />
                   ) : (
-                    <IconComponent className="w-full h-full" />
+                    <Code className="w-full h-full" />
                   )}
                 </div>
                 <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 text-center">

@@ -3,6 +3,8 @@ export type Skill = {
   name: string;
   level: string;
   order_index: number;
+  icon?: string;
+  icon_url?: string;
 };
 
 async function getSkills(): Promise<Skill[]> {
