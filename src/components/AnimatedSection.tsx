@@ -7,13 +7,13 @@ interface AnimatedSectionProps {
   className?: string;
 }
 
-const AnimatedSection: React.FC<AnimatedSectionProps> = ({ id, children, className = '' }) => {
+const AnimatedSection: React.FC<AnimatedSectionProps> = ({ id, children, className = 'duration-1000' }) => {
     const [ref, isVisible] = useScrollAnimation();
     return (
         <section 
             id={id} 
             ref={ref} 
-            className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'} ${className}`}
+            className={`transition-all ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'} ${className}`}
         >
             {children}
         </section>
