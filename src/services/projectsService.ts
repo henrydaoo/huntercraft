@@ -10,6 +10,9 @@ export type Project = {
   image_url?: string | null;
   technologies: string[];
   featured: boolean;
+  detailed_description?: string | null;
+  demo_url?: string | null;
+  github_url?: string | null;
 };
 
 async function getProjects(): Promise<Project[]> {
