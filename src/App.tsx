@@ -1,3 +1,4 @@
+import React from "react";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "@/contexts/ThemeContext";
@@ -13,8 +14,12 @@ const App = () => (
         <AppRoutes />
       </TooltipProvider>
     </ThemeProvider>
-    <SpeedInsights />
-    <Analytics />
+    {import.meta.env.PROD && (
+      <React.Suspense fallback={null}>
+        <SpeedInsights />
+        <Analytics />
+      </React.Suspense>
+    )}
   </>
 );
 
