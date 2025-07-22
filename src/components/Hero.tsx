@@ -1,27 +1,17 @@
-import { usePersonalInfo, useSocialLinks } from "@/hooks";
+import { useHeroInfo } from "@/hooks/useHeroInfo";
 import { useTypingEffect } from "@/hooks/useTypingEffect";
 import { useEffect } from "react";
 
 const Hero = () => {
   const {
-    data: personalInfo,
-    isLoading: loadingPersonal,
-    refetch: refetchPersonalInfo,
-  } = usePersonalInfo({
-    enable: false,
+    data,
+    isLoading,
+    refetch,
+  } = useHeroInfo({
+    enabled: true,
   });
-  const {
-    data: socialLinks,
-    isLoading: loadingSocial,
-    refetch: refetchSocialLinks,
-  } = useSocialLinks({
-    enable: false,
-  });
-
-  useEffect(() => {
-    refetchPersonalInfo();
-    refetchSocialLinks();
-  }, []);
+  const personalInfo = data?.personalInfo;
+  const socialLinks = data?.socialLinks;
 
   const typedName = useTypingEffect(personalInfo?.name || "", 100);
 
@@ -32,7 +22,7 @@ const Hero = () => {
     }
   };
 
-  if (loadingPersonal || loadingSocial) {
+  if (isLoading) {
     return (
       <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-14 text-center">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -73,7 +63,7 @@ const Hero = () => {
         </p>
         {socialLinks && socialLinks.length > 0 && (
           <div className="flex justify-center items-center space-x-6 mb-8">
-            {socialLinks.map((link) => (
+            {socialLinks.map((link: any) => (
               <a
                 key={link.id}
                 href={link.url}
