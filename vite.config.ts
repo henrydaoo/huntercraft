@@ -2,8 +2,6 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { createHtmlPlugin } from "vite-plugin-html";
-import { visualizer } from "rollup-plugin-visualizer";
-import beasties from "beasties";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
@@ -32,7 +30,6 @@ export default defineConfig(({ mode }) => ({
       entry: "src/main.tsx",
       template: "index.html",
     }),
-    visualizer({ open: true }),
   ],
   build: {
     minify: "terser",
