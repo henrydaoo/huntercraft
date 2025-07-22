@@ -40,7 +40,7 @@ export default defineConfig(({ mode }) => ({
         comments: false,
       },
     },
-    sourcemap: true,
+    sourcemap: false,
   },
   resolve: {
     alias: {
