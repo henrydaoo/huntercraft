@@ -1,25 +1,11 @@
 import { useHeroInfo } from "@/hooks/useHeroInfo";
 import AnimatedSection from "./AnimatedSection";
 
-const About = () => {
-  const { data, isLoading } = useHeroInfo({ enabled: true });
-  const personalInfo = data?.personalInfo;
+const defaultBio = "I’m a dedicated developer with a deep interest in using technology to build smart, effective solutions and designing user experiences that are both beautiful and easy to use";
 
-  if (isLoading) {
-    return (
-      <section className="py-20 sm:py-24">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-blue-600 rounded-lg shadow-xl p-8 md:p-12 lg:p-16 animate-pulse">
-            <div className="max-w-3xl mx-auto text-center">
-              <div className="h-12 bg-blue-500 rounded mb-4 max-w-xs mx-auto"></div>
-              <div className="h-6 bg-blue-500 rounded mb-4"></div>
-              <div className="h-6 bg-blue-500 rounded"></div>
-            </div>
-          </div>
-        </div>
-      </section>
-    );
-  }
+const About = () => {
+  const { data } = useHeroInfo({ enabled: true });
+  const personalInfo = data?.personalInfo;
 
   return (
     <AnimatedSection id="about" className="py-20 sm:py-24">
@@ -30,8 +16,7 @@ const About = () => {
               About Me
             </h2>
             <p className="text-lg text-blue-100 leading-relaxed">
-              {personalInfo?.bio ||
-                "I’m a dedicated developer with a deep interest in using technology to build smart, effective solutions and designing user experiences that are both beautiful and easy to use"}
+              {personalInfo?.bio || defaultBio}
             </p>
           </div>
         </div>
