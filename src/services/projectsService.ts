@@ -5,6 +5,11 @@ export type Project = {
   slug: string;
   visible: boolean;
   order_index: number;
+  image_urls: string[]| null;
+  category: string;
+  image_url?: string | null;
+  technologies: string[];
+  featured: boolean;
 };
 
 async function getProjects(): Promise<Project[]> {
