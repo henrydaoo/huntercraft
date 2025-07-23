@@ -1,14 +1,15 @@
 import { useHeroInfo } from "@/hooks/useHeroInfo";
 import AnimatedSection from "./AnimatedSection";
 
-const defaultBio = "I’m a dedicated developer with a deep interest in using technology to build smart, effective solutions and designing user experiences that are both beautiful and easy to use";
+const defaultBio =
+  "I’m a dedicated developer with a deep interest in using technology to build smart, effective solutions and designing user experiences that are both beautiful and easy to use";
 
 const About = () => {
   const { data } = useHeroInfo({ enabled: true });
   const personalInfo = data?.personalInfo;
 
   return (
-    <AnimatedSection id="about" className="py-20 sm:py-24 duration-0">
+    <section id="about">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-gradient-to-r from-blue-500 to-blue-700 dark:from-blue-600 dark:to-blue-800 rounded-lg shadow-xl p-8 md:p-12 lg:p-16">
           <div className="max-w-3xl mx-auto text-center">
@@ -21,7 +22,7 @@ const About = () => {
           </div>
         </div>
       </div>
-    </AnimatedSection>
+    </section>
   );
 };
 
