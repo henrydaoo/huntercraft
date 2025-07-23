@@ -2,18 +2,12 @@ import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useWebsiteInfo } from "@/hooks/useWebsiteInfo";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { data: websiteInfo, refetch } = useWebsiteInfo({ enable: false });
   const navigate = useNavigate();
   const location = useLocation();
-
-  useEffect(() => {
-    refetch();
-  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,9 +20,7 @@ const Header = () => {
   const navLinks = [
     { label: "Home", id: "home" },
     { label: "About", id: "about" },
-    { label: "Skills", id: "skills" },
-    { label: "Experience", id: "experience" },
-    { label: "Education", id: "education" },
+    { label: "Technologies", id: "technologies" },
     { label: "Projects", id: "projects" },
     { label: "Contact", id: "contact" },
   ];
@@ -64,7 +56,7 @@ const Header = () => {
               handleNavClick("home");
             }}
           >
-            {websiteInfo?.site_name || ""}
+            {"Hunter"}
           </a>
 
           <nav className="hidden md:flex items-center space-x-8">

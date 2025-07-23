@@ -1,14 +1,12 @@
-import { useHeroInfo } from "@/hooks/useHeroInfo";
+import { useSocialLinks } from "@/hooks";
 import { useTypingEffect } from "@/hooks/useTypingEffect";
 
 const Hero = () => {
-  const { data, isLoading } = useHeroInfo({
-    enabled: true,
+  const { data: socialLinks, isLoading } = useSocialLinks({
+    enable: true,
   });
-  const personalInfo = data?.personalInfo;
-  const socialLinks = data?.socialLinks;
 
-  const typedName = useTypingEffect(personalInfo?.name || "", 100);
+  const typedName = useTypingEffect("Hunter", 100);
 
   const scrollToContact = () => {
     const element = document.getElementById("contact");
@@ -46,15 +44,15 @@ const Hero = () => {
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <h1 className="w-full h-[68px] text-4xl sm:text-5xl md:text-6xl font-extrabold text-gray-900 dark:text-white leading-tight mb-4">
-          Hi, I'm <span className="text-blue-600 relative">{typedName}</span>
+          Hi, We're <span className="text-blue-600 relative">{typedName}</span>
           <span className="typing-cursor animate-pulse ml-1">|</span>
         </h1>
         <p className="text-lg sm:text-xl font-medium text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
-          {personalInfo?.title || "Full-Stack Developer"}
+          Build. Craft. Impact.
         </p>
         <p className="text-md text-gray-500 dark:text-gray-400 max-w-2xl mx-auto mb-8">
-          I design and code beautifully simple things that are crafted with care
-          and creativity
+          We build powerful software tools, crafted with clarity, care, and
+          purpose.
         </p>
         {socialLinks && socialLinks.length > 0 && (
           <div className="flex justify-center items-center space-x-6 mb-8">
