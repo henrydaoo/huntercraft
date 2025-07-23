@@ -6,10 +6,7 @@ export default async function handler(req: Request): Promise<Response> {
   const { searchParams } = new URL(req.url);
   let query = supabaseServer.from("projects").select("*");
   let single = false;
-  if (searchParams.has("id")) {
-    query = query.eq("id", searchParams.get("id"));
-    single = true;
-  }
+
   if (searchParams.has("slug")) {
     query = query.eq("slug", searchParams.get("slug"));
     single = true;
@@ -19,7 +16,8 @@ export default async function handler(req: Request): Promise<Response> {
 
   const headers = {
     "Content-Type": "application/json",
-    "Cache-Control": "public, max-age=604800, s-maxage=2592000, stale-while-revalidate=2592000",
+    "Cache-Control":
+      "public, max-age=604800, s-maxage=2592000, stale-while-revalidate=2592000",
   };
 
   if (error) {
