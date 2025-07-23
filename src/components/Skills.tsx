@@ -31,7 +31,7 @@ const Skills = () => {
 
   return (
     <AnimatedSection
-      id="skills"
+      id="technologies"
       className="py-20 sm:py-24 bg-gray-50 dark:bg-gray-900"
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
