@@ -12,7 +12,7 @@ const Layout = ({ children }: LayoutProps) => {
     <div className="bg-white dark:bg-gray-900 min-h-screen text-gray-700 dark:text-gray-300">
       <Header />
       {children}
-      <LazyDataSection>
+      <LazyDataSection minHeight="200px">
         <Footer />
       </LazyDataSection>
       <ScrollToTop />
