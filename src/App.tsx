@@ -1,5 +1,4 @@
 import { lazy, Suspense } from "react";
-import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 const Toaster = lazy(() =>
   import("@/components/ui/sonner").then((mod) => ({ default: mod.Toaster }))
@@ -11,14 +10,12 @@ import { SpeedInsights } from "@vercel/speed-insights/react";
 const App = () => (
   <>
     <ThemeProvider>
-      <TooltipProvider>
-        <Suspense fallback={null}>
-          <Toaster />
-        </Suspense>
-        <Suspense fallback={null}>
-          <AppRoutes />
-        </Suspense>
-      </TooltipProvider>
+      <Suspense fallback={null}>
+        <Toaster />
+      </Suspense>
+      <Suspense fallback={null}>
+        <AppRoutes />
+      </Suspense>
     </ThemeProvider>
     {import.meta.env.PROD && (
       <Suspense fallback={null}>
