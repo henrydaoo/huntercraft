@@ -13,21 +13,6 @@ export type SocialLink = {
   icon: string;
 };
 
-async function getContactInfo(): Promise<ContactInfo | null> {
-  try {
-    const res = await fetch("/api/contact-info");
-    if (!res.ok) {
-      console.error("Error fetching contact info:", res.statusText);
-      return null;
-    }
-    const data = await res.json();
-    return data || null;
-  } catch (error) {
-    console.error("Error:", error);
-    return null;
-  }
-}
-
 async function getSocialLinks(): Promise<SocialLink[]> {
   try {
     const res = await fetch("/api/social-links");
@@ -44,6 +29,5 @@ async function getSocialLinks(): Promise<SocialLink[]> {
 }
 
 export const contactService = {
-  getContactInfo,
   getSocialLinks,
 };

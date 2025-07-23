@@ -53,7 +53,7 @@ const Projects = () => {
             Featured <span className="text-blue-600">Projects</span>
           </h2>
           <p className="mt-4 text-lg text-gray-600 dark:text-gray-300">
-            Some of the products I am proud of
+            Some of the products we built
           </p>
         </div>
 

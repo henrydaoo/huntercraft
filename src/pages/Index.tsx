@@ -5,10 +5,6 @@ import Hero from "@/components/Hero";
 import About from "@/components/About";
 import { Suspense, lazy } from "react";
 const Skills = lazy(() => import("@/components/Skills"));
-const ExperienceTimeline = lazy(
-  () => import("@/components/ExperienceTimeline")
-);
-const EducationTimeline = lazy(() => import("@/components/EducationTimeline"));
 const Projects = lazy(() => import("@/components/Projects"));
 const Contact = lazy(() => import("@/components/Contact"));
 import { useScrollToTop } from "@/hooks/useScrollToTop";
@@ -47,12 +43,6 @@ const Index = () => {
         </LazyDataSection>
         <LazyDataSection minHeight="400px" threshold={0.8}>
           <Skills />
-        </LazyDataSection>
-        <LazyDataSection minHeight="400px">
-          <ExperienceTimeline />
-        </LazyDataSection>
-        <LazyDataSection minHeight="400px">
-          <EducationTimeline />
         </LazyDataSection>
         <LazyDataSection minHeight="400px">
           <Projects />

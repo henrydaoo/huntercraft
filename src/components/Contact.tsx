@@ -57,7 +57,7 @@ const Contact = () => {
             Get In <span className="text-blue-600">Touch</span>
           </h2>
           <p className="mt-4 text-lg text-gray-600 dark:text-gray-300">
-            Feel free to reach out. I'm always open to discussing new opportunities.
+            Feel free to reach out. We're open to discussing new opportunities.
           </p>
         </div>
         <div className="max-w-xl mx-auto">
