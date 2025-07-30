@@ -4,7 +4,7 @@ export const config = { runtime: "edge" };
 
 export default async function handler(req: Request): Promise<Response> {
   const { searchParams } = new URL(req.url);
-  let query = supabaseServer.from("projects").select("*");
+  let query = supabaseServer.from("projects").select("*").eq("is_visible", true);;
   let single = false;
 
   if (searchParams.has("slug")) {
