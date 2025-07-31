@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Project } from "@/services/projectsService";
 import ProjectCard from "@/components/ProjectCard";
 import Icon from "@/components/Icon";
+import { useNavigate } from "react-router-dom";
 
 const BREAKPOINTS = {
   mobile: 768,
@@ -20,16 +21,19 @@ const BUTTON_POSITION_TOP = "16.5rem";
 interface ProjectCarouselProps {
   projects: Project[];
   currentProjectSlug?: string;
+  onProjectClick: (project: Project) => void;
 }
 
 const ProjectCarousel: React.FC<ProjectCarouselProps> = ({
   projects,
   currentProjectSlug,
+  onProjectClick,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [visibleProjects, setVisibleProjects] = useState<Project[]>([]);
   const [itemsPerPage, setItemsPerPage] = useState(3);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const updateItemsPerPage = () => {
@@ -148,7 +152,11 @@ const ProjectCarousel: React.FC<ProjectCarouselProps> = ({
                       (pageIndex + 1) * itemsPerPage
                     )
                     .map((project) => (
-                      <ProjectCard key={project.id} project={project} />
+                      <ProjectCard
+                        key={project.id}
+                        project={project}
+                        onProjectClick={onProjectClick}
+                      />
                     ))}
                 </div>
               </div>
