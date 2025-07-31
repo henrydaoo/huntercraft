@@ -7,7 +7,6 @@ import Icon from "@/components/Icon";
 import ImageGalleryModal from "@/components/ImageGalleryModal";
 import { useProjects, useProjectBySlug } from "@/hooks/useProjects";
 import { useScrollToTop } from "@/hooks/useScrollToTop";
-import { Project } from "@/services/projectsService";
 import { formatProjectDateRange } from "@/lib/dateUtils";
 import ReactMarkdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
