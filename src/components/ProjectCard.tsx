@@ -4,17 +4,15 @@ import { formatProjectDateRange } from "@/lib/dateUtils";
 
 interface ProjectCardProps {
   project: Project;
-  onProjectClick: (project: Project) => void;
 }
 
-const ProjectCard: React.FC<ProjectCardProps> = ({
-  project,
-  onProjectClick,
-}) => {
+const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   return (
-    <div
+    <a
+      tabIndex={0}
+      role="button"
       className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden group transition-all duration-300 hover:shadow-xl hover:-translate-y-2 flex flex-col cursor-pointer"
-      onClick={() => onProjectClick(project)}
+      href={"/project/" + project.slug}
     >
       <div className="relative">
         <img
@@ -73,7 +71,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           View Project →
         </button>
       </div>
-    </div>
+    </a>
   );
 };
 

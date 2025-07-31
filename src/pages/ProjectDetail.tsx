@@ -7,7 +7,6 @@ import Icon from "@/components/Icon";
 import ImageGalleryModal from "@/components/ImageGalleryModal";
 import { useProjects, useProjectBySlug } from "@/hooks/useProjects";
 import { useScrollToTop } from "@/hooks/useScrollToTop";
-import { Project } from "@/services/projectsService";
 import { formatProjectDateRange } from "@/lib/dateUtils";
 import ReactMarkdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
@@ -32,10 +31,6 @@ const ProjectDetailPage = () => {
     navigate("/");
     return null;
   }
-
-  const handleProjectClick = (clickedProject: Project) => {
-    navigate(`/project/${clickedProject.slug}`);
-  };
 
   if (isLoading) {
     return (
@@ -236,7 +231,6 @@ const ProjectDetailPage = () => {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <ProjectCarousel
               projects={allProjects || []}
-              onProjectClick={handleProjectClick}
               currentProjectSlug={project?.slug}
             />
           </div>

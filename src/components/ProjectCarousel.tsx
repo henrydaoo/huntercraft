@@ -19,13 +19,11 @@ const BUTTON_POSITION_TOP = "16.5rem";
 
 interface ProjectCarouselProps {
   projects: Project[];
-  onProjectClick: (project: Project) => void;
   currentProjectSlug?: string;
 }
 
 const ProjectCarousel: React.FC<ProjectCarouselProps> = ({
   projects,
-  onProjectClick,
   currentProjectSlug,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -50,7 +48,9 @@ const ProjectCarousel: React.FC<ProjectCarouselProps> = ({
   }, []);
 
   useEffect(() => {
-    const filteredProjects = projects.filter((p) => p.slug !== currentProjectSlug);
+    const filteredProjects = projects.filter(
+      (p) => p.slug !== currentProjectSlug
+    );
     setVisibleProjects(filteredProjects);
     setCurrentIndex(0);
   }, [projects, currentProjectSlug]);
@@ -148,11 +148,7 @@ const ProjectCarousel: React.FC<ProjectCarouselProps> = ({
                       (pageIndex + 1) * itemsPerPage
                     )
                     .map((project) => (
-                      <ProjectCard
-                        key={project.id}
-                        project={project}
-                        onProjectClick={onProjectClick}
-                      />
+                      <ProjectCard key={project.id} project={project} />
                     ))}
                 </div>
               </div>

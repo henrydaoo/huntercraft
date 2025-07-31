@@ -53,7 +53,7 @@ const Projects = () => {
             Featured <span className="text-blue-600">Projects</span>
           </h2>
           <p className="mt-4 text-lg text-gray-600 dark:text-gray-300">
-            Some of the products we built
+            Some of the products I am proud of
           </p>
         </div>
 
@@ -75,11 +75,7 @@ const Projects = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredProjects.map((project) => (
-            <ProjectCardNew
-              key={project.id}
-              project={project}
-              onProjectClick={handleProjectClick}
-            />
+            <ProjectCardNew key={project.id} project={project} />
           ))}
         </div>
 
