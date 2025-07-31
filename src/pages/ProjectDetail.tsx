@@ -14,6 +14,7 @@ import {
   oneDark,
   oneLight,
 } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { Project } from "@/services";
 
 const ProjectDetailPage = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -84,6 +85,10 @@ const ProjectDetailPage = () => {
   const allImages = project
     ? [project.image_url, ...(project.image_urls || [])].filter(Boolean)
     : [];
+
+  const handleProjectClick = (project: Project) => {
+    navigate(`/project/${project.slug}`);
+  };
 
   return (
     <Layout>
@@ -232,6 +237,7 @@ const ProjectDetailPage = () => {
             <ProjectCarousel
               projects={allProjects || []}
               currentProjectSlug={project?.slug}
+              onProjectClick={handleProjectClick}
             />
           </div>
         </div>
