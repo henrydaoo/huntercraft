@@ -33,10 +33,6 @@ const ProjectDetailPage = () => {
     return null;
   }
 
-  const handleProjectClick = (clickedProject: Project) => {
-    navigate(`/project/${clickedProject.slug}`);
-  };
-
   if (isLoading) {
     return (
       <Layout>
@@ -236,7 +232,6 @@ const ProjectDetailPage = () => {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <ProjectCarousel
               projects={allProjects || []}
-              onProjectClick={handleProjectClick}
               currentProjectSlug={project?.slug}
             />
           </div>
