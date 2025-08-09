@@ -21,8 +21,6 @@ const Header = () => {
     { label: "Home", id: "home" },
     { label: "About", id: "about" },
     { label: "Technologies", id: "technologies" },
-    { label: "Projects", id: "projects" },
-    { label: "Contact", id: "contact" },
   ];
 
   const handleNavClick = (sectionId: string) => {
