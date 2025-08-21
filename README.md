@@ -1,10 +1,11 @@
-# HunterCraft 🌟
+# HunterCraft 🚀 - Team & Product Landing Page
 
 **Overview**  
 A responsive landing page platform to showcase the Hunter team and its products.
 
 **Tech Stack**  
-- ReactJS, TypeScript, TailwindCSS, Shadcn, Supabase, Vercel
+- **Frontend:** ReactJS, TypeScript, TailwindCSS, Shadcn  
+- **Backend/Hosting:** Supabase, Vercel  
 
 **Key Features**  
 - Homepage with team introduction and project highlights  
@@ -22,3 +23,4 @@ Sole Developer – designed and built the landing page, optimized performance, a
 
 **Screenshot**  
 ![HunterCraft Preview](https://ik.imagekit.io/henrydaoo/portfolio/logo/huntercraft.png?updatedAt=1753286945501)
+
