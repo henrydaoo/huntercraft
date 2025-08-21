@@ -1,40 +1,24 @@
-# HunterCraft
-A landing page platform to showcase the Hunter team and its products
+# HunterCraft 🌟
 
-# Technologies
-ReactJS, Typescript, TailwindCSS, Shadcn, Supabase, Vercel
+**Overview**  
+A responsive landing page platform to showcase the Hunter team and its products.
 
-# Features
+**Tech Stack**  
+- ReactJS, TypeScript, TailwindCSS, Shadcn, Supabase, Vercel
 
-HunterCraft is a clean, fast, and responsive landing page website designed to introduce the Hunter team and highlight their software products in a professional and performance-optimized way
+**Key Features**  
+- Homepage with team introduction and project highlights  
+- Product detail pages with preview capability  
+- Performance optimized (90+ PageSpeed score on mobile & desktop)  
+- Fully responsive with smooth scrolling and lightweight animations  
+- SEO-ready with Open Graph and metadata for sharing
 
-•  Features a homepage with team introduction and project highlights
+**My Role**  
+Sole Developer – designed and built the landing page, optimized performance, and implemented SEO best practices.
 
-•  Includes a detail page for each product with preview capability
+**Links**  
+- [Live Demo](https://huntercraft.vercel.app/)  
+- [GitHub Repo](https://github.com/henrydaoo/huntercraft)  
 
-•  Performance scores over 90 on both mobile and desktop using Google PageSpeed Insights
-
-•  Fully responsive across devices with smooth scrolling and lightweight animations
-
-•  Minimal, elegant design optimized for branding and clear messaging
-
-•  SEO-ready with Open Graph and metadata for easy sharing
-
-<img width="1902" height="943" alt="huntercraft" src="https://github.com/user-attachments/assets/d30d8287-2495-4423-8bde-cf2766d6195b" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+**Screenshot**  
+![HunterCraft Preview](https://ik.imagekit.io/henrydaoo/portfolio/logo/huntercraft.png?updatedAt=1753286945501)
